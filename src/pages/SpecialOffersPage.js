@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, IconButton, CircularProgress, Snackbar, Alert, Fab } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Typography, Box, IconButton, Snackbar, Alert, Fab } from '@mui/material';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
-import useProducts from '../hooks/useProducts';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import useOrder from '../hooks/useOrder';
 import useAuth from '../hooks/useAuth';
-import categoryRepository from '../repository/categoryRepository';
 
-const ProductsPage = () => {
+const SpecialOffersPage = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const categoryParam = searchParams.get('category');
-    const seasonParam = searchParams.get('season'); // ✅ Add season parameter
-    const searchQuery = searchParams.get('search') || ''; // ✅ Get search query from URL
-    const [selectedCategory, setSelectedCategory] = useState(categoryParam ? parseInt(categoryParam) : null);
-    const [categoryData, setCategoryData] = useState(null);
+    const searchQuery = searchParams.get('search') || ''; // ✅ Get search query
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
     const { isAuthenticated } = useAuth();
@@ -29,73 +24,92 @@ const ProductsPage = () => {
         return role === 'ROLE_ADMIN' || role === 'ADMIN';
     };
 
-    // Update selected category when URL changes
-    useEffect(() => {
-        setSelectedCategory(categoryParam ? parseInt(categoryParam) : null);
+    // Hardcoded special offers products with discounts (10% - 50%)
+    const specialOffers = [
+        {
+            id: 1,
+            name: 'Cable Knit Cashmere Sweater',
+            originalPrice: 1299.99,
+            discount: 30, // 30% off
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAQ/FAQ3218/60DA4312-63A0-4E89-8136-A429B6BD17FD/FAQ3218_51FU_MEDIUM.jpg?sw=500&sh=700',
+            imageUrl2: 'https://media.loropiana.com/PRODUCTS/HYBRIS/FAQ/FAQ3218/51FU/L3/805ADE5C-7C68-445A-B04A-15BE848F0EB2_FAQ3218_51FU_MEDIUM.jpg',
+        },
+        {
+            id: 13,
+            name: 'Cashmere Polo Sweater',
+            originalPrice: 1199.99,
+            discount: 25,
+            imageUrl: 'https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP7344/W000/FR/0B635099-D96A-4C7D-90A2-3AD87FFCA794_FAP7344_W000_MEDIUM.jpg?sw=500&sh=700',
+            imageUrl2: 'https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP7344/W000/L2/78411282-CCEE-4178-8430-84F084F7C3C3_FAP7344_W000_MEDIUM.jpg',
+        },
+        {
+            id: 15,
+            name: 'Cashmere Trench Coat',
+            originalPrice: 3299.99,
+            discount: 40,
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAQ/FAQ2737/28002A84-A27E-4229-9086-326B109373DC/FAQ2737_A014_MEDIUM.jpg',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAQ/FAQ2737/3DAC5BFB-C1B8-41F4-BD66-15A3DBE5072F/FAQ2737_A014_MEDIUM.jpg',
+        },
+        {
+            id: 3,
+            name: 'Cashmere Overcoat',
+            originalPrice: 3499.99,
+            discount: 35,
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAN/FAN1935/8CDAE738-7C09-44FE-97DB-908E07252E6F/FAN1935_W0ZP_MEDIUM.jpg?sw=500&sh=700',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAN/FAN1935/AD3292E4-9C35-4C75-8F59-8323D35AABBC/FAN1935_W0ZP_MEDIUM.jpg',
+        },
+        {
+            id: 26,
+            name: 'Leather Backpack',
+            originalPrice: 1299.99,
+            discount: 20,
+            imageUrl: 'https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP5328/804M/FR/373700F6-6FA0-4E8D-8842-D62BF7C00109_FAP5328_804M_MEDIUM.jpg',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAP/FAP5328/3555E622-1314-4BBB-9E4E-D7B93E5162EE/FAP5328_804M_MEDIUM.jpg',
+        },
+        {
+            id: 5,
+            name: 'Lightweight Cashmere Cardigan',
+            originalPrice: 1499.99,
+            discount: 15,
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAL/FAL2899/208D2585-554A-4F4E-822B-5CA46087C9F6/FAL2899_HC54_MEDIUM.jpg',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAL/FAL2899/70C2796E-C045-4FE9-A65E-3F6CDD3F7742/FAL2899_HC54_MEDIUM.jpg',
+        },
+        {
+            id: 18,
+            name: 'Cashmere Wrap Coat',
+            originalPrice: 2999.99,
+            discount: 45,
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAO/FAO0815/39CD89D9-E822-442A-966F-CB3452A8424B/FAO0815_H0YE_MEDIUM.jpg',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAO/FAO0815/FC7CD8B2-825C-4F7D-A2AA-4E8465A97982/FAO0815_H0YE_MEDIUM.jpg',
+        },
+        {
+            id: 12,
+            name: 'Merino Wool Blazer',
+            originalPrice: 1999.99,
+            discount: 50,
+            imageUrl: 'https://media.loropiana.com/HYBRIS/FAF/FAF6689/13481E0A-E9E1-41D1-B249-965BBE4C68A1/FAF6689_D0VN_MEDIUM.jpg?sw=500&sh=700',
+            imageUrl2: 'https://media.loropiana.com/HYBRIS/FAF/FAF6689/E6BEB6A1-CAB7-40C1-B4E0-4CA5028B2793/FAF6689_D0VN_MEDIUM.jpg',
+        },
+    ];
 
-        // Fetch category details only if category parameter exists
-        if (categoryParam) {
-            categoryRepository.findById(categoryParam)
-                .then(response => setCategoryData(response.data))
-                .catch(error => console.error('Error fetching category:', error));
-        } else if (seasonParam) {
-            // Set default category data for season
-            setCategoryData({
-                name: 'Fall/Winter 2025-2026',
-                description: 'Discover our latest Fall/Winter collection featuring timeless pieces crafted from the finest materials.'
-            });
-        }
-    }, [categoryParam, seasonParam]);
-
-    const { products, loading, onDelete } = useProducts(selectedCategory);
-
-    // ✅ Filter products by search query
-    const filteredProducts = products.filter(product =>
+    // ✅ Filter offers by search query
+    const filteredOffers = specialOffers.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Get category-specific video
-    const getCategoryVideo = () => {
-        if (!categoryData) return null;
-
-        const categoryName = categoryData.name;
-        if (categoryName === 'Men') return '/ManVideo.mp4';
-        if (categoryName === 'Women') return '/WomenVideo.mp4';
-        if (categoryName === 'Gifts') return '/GiftsVideo.mp4';
-        return null;
+    // Calculate discounted price
+    const calculateDiscountedPrice = (originalPrice, discount) => {
+        return originalPrice * (1 - discount / 100);
     };
 
-    const handleDelete = async (productId, productName) => {
-        if (window.confirm(`Are you sure you want to delete "${productName}"?`)) {
-            try {
-                await onDelete(productId);
-                setSnackbar({
-                    open: true,
-                    message: `${productName} deleted successfully!`,
-                    severity: 'success',
-                });
-            } catch (error) {
-                setSnackbar({
-                    open: true,
-                    message: 'Failed to delete product',
-                    severity: 'error',
-                });
-            }
-        }
-    };
-
-    // Component for image with hover effect
-    const ImageWithHover = ({ product, onClick }) => {
+    // Component for product with hover effect
+    const ProductWithDiscount = ({ product }) => {
         const [isHovered, setIsHovered] = useState(false);
         const admin = isAdmin();
 
-        // Parse imageUrl - should be in format: "url1,url2" or just "url1"
-        const images = product.imageUrl ? product.imageUrl.split(',').map(url => url.trim()) : [];
-        const defaultImage = images[0] || 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500';
-        const hoverImage = images[1] || defaultImage;
-
-        // Format price in euros
-        const formattedPrice = `€${product.price.toFixed(0)}`;
+        const discountedPrice = calculateDiscountedPrice(product.originalPrice, product.discount);
+        const formattedOriginalPrice = `€${product.originalPrice.toFixed(0)}`;
+        const formattedDiscountedPrice = `€${discountedPrice.toFixed(0)}`;
 
         return (
             <Box
@@ -109,11 +123,11 @@ const ProductsPage = () => {
                 }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                onClick={onClick}
+                onClick={() => navigate(`/products/${product.id}`)}
             >
                 <Box
                     component="img"
-                    src={isHovered ? hoverImage : defaultImage}
+                    src={isHovered ? product.imageUrl2 : product.imageUrl}
                     alt={product.name}
                     sx={{
                         width: '100%',
@@ -126,6 +140,35 @@ const ProductsPage = () => {
                         mixBlendMode: 'multiply',
                     }}
                 />
+
+                {/* Discount Badge - Top Left */}
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: 12,
+                        left: 12,
+                        backgroundColor: '#d32f2f',
+                        color: '#ffffff',
+                        padding: '8px 14px',
+                        borderRadius: '20px', // ✅ More rounded
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        boxShadow: '0 3px 10px rgba(211, 47, 47, 0.35)', // ✅ Better shadow
+                    }}
+                >
+                    <LocalOfferIcon sx={{ fontSize: 14 }} />
+                    <Typography
+                        sx={{
+                            fontFamily: '"Lato", sans-serif',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            letterSpacing: '0.05em',
+                        }}
+                    >
+                        -{product.discount}%
+                    </Typography>
+                </Box>
 
                 {/* Admin Controls - Edit and Delete */}
                 {admin ? (
@@ -143,11 +186,15 @@ const ProductsPage = () => {
                         {/* Edit Button */}
                         <IconButton
                             sx={{
-                                backgroundColor: 'rgba(245, 235, 224, 0.95)',
-                                width: 36,
-                                height: 36,
+                                backgroundColor: 'rgba(212, 184, 150, 0.9)',
+                                width: 38,
+                                height: 38,
+                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                                transition: 'all 0.3s ease',
                                 '&:hover': {
-                                    backgroundColor: 'rgba(230, 204, 178, 0.95)',
+                                    backgroundColor: 'rgba(196, 168, 134, 1)',
+                                    transform: 'scale(1.05)',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
                                 },
                             }}
                             onClick={(e) => {
@@ -155,25 +202,29 @@ const ProductsPage = () => {
                                 navigate(`/products/${product.id}/edit`);
                             }}
                         >
-                            <EditOutlinedIcon sx={{ fontSize: 18, color: '#2c2c2c' }} />
+                            <EditOutlinedIcon sx={{ fontSize: 19, color: '#ffffff' }} />
                         </IconButton>
 
                         {/* Delete Button */}
                         <IconButton
                             sx={{
-                                backgroundColor: 'rgba(245, 235, 224, 0.95)',
-                                width: 36,
-                                height: 36,
+                                backgroundColor: 'rgba(245, 235, 224, 0.9)',
+                                width: 38,
+                                height: 38,
+                                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                                transition: 'all 0.3s ease',
                                 '&:hover': {
-                                    backgroundColor: 'rgba(244, 143, 177, 0.95)',
+                                    backgroundColor: 'rgba(239, 154, 154, 0.95)',
+                                    transform: 'scale(1.05)',
+                                    boxShadow: '0 4px 12px rgba(211, 47, 47, 0.3)',
                                 },
                             }}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                handleDelete(product.id, product.name);
+                                alert('Delete functionality not implemented for special offers');
                             }}
                         >
-                            <DeleteOutlineIcon sx={{ fontSize: 18, color: '#d32f2f' }} />
+                            <DeleteOutlineIcon sx={{ fontSize: 19, color: '#c62828' }} />
                         </IconButton>
                     </Box>
                 ) : (
@@ -235,11 +286,11 @@ const ProductsPage = () => {
                         opacity: isHovered ? 1 : 0,
                         transition: 'all 0.4s ease',
                         backgroundColor: '#f5ebe0',
-                        padding: '8px 20px',
+                        padding: '10px 20px',
                         borderRadius: '4px',
                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
                         pointerEvents: 'none',
-                        minWidth: '140px',
+                        minWidth: '160px',
                         textAlign: 'center',
                     }}
                 >
@@ -250,42 +301,50 @@ const ProductsPage = () => {
                             fontWeight: 400,
                             color: 'rgba(44, 44, 44, 0.7)',
                             letterSpacing: '0.05em',
-                            mb: 0.3,
+                            mb: 0.5,
                             textTransform: 'uppercase',
                         }}
                     >
                         {product.name}
                     </Typography>
+
+                    {/* Original Price - Crossed Out */}
                     <Typography
                         sx={{
                             fontFamily: '"Cormorant Garamond", serif',
-                            fontSize: '1rem',
-                            fontWeight: 500,
-                            color: '#2c2c2c',
+                            fontSize: '0.85rem',
+                            fontWeight: 400,
+                            color: '#999',
+                            textDecoration: 'line-through',
                             letterSpacing: '0.05em',
                         }}
                     >
-                        {formattedPrice}
+                        {formattedOriginalPrice}
+                    </Typography>
+
+                    {/* Discounted Price - Red */}
+                    <Typography
+                        sx={{
+                            fontFamily: '"Cormorant Garamond", serif',
+                            fontSize: '1.1rem',
+                            fontWeight: 600,
+                            color: '#d32f2f',
+                            letterSpacing: '0.05em',
+                        }}
+                    >
+                        {formattedDiscountedPrice}
                     </Typography>
                 </Box>
             </Box>
         );
     };
 
-    if (loading) {
-        return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', backgroundColor: '#f5f1e8' }}>
-                <CircularProgress sx={{ color: '#2c2c2c' }} />
-            </Box>
-        );
-    }
-
     return (
         <Box sx={{ backgroundColor: '#f5f1e8', minHeight: '100vh', position: 'relative' }}>
             <Container maxWidth="xl" sx={{ pt: 4, pb: 3 }}>
-                {/* Category Section */}
+                {/* Page Header */}
                 <Box sx={{ mb: 6 }}>
-                    {/* Category Title */}
+                    {/* Title with Red Accent */}
                     <Typography
                         variant="h3"
                         align="center"
@@ -294,99 +353,43 @@ const ProductsPage = () => {
                             fontWeight: 300,
                             letterSpacing: '0.1em',
                             mb: 2,
+                            color: '#d32f2f',
                         }}
                     >
-                        {searchQuery ? `Search Results for "${searchQuery}"` : (categoryData?.name || 'Products')}
+                        SPECIAL OFFERS
                     </Typography>
 
-                    {/* Category Description */}
-                    {categoryData?.description && !searchQuery && (
-                        <Typography
-                            variant="body1"
-                            align="center"
-                            sx={{
-                                maxWidth: 800,
-                                mx: 'auto',
-                                mb: 5,
-                                lineHeight: 1.8,
-                                color: '#666',
-                                fontSize: '0.95rem',
-                            }}
-                        >
-                            {categoryData.description}
-                        </Typography>
-                    )}
+                    {/* Subtitle */}
+                    <Typography
+                        variant="body1"
+                        align="center"
+                        sx={{
+                            maxWidth: 800,
+                            mx: 'auto',
+                            mb: 5,
+                            lineHeight: 1.8,
+                            color: '#666',
+                            fontSize: '0.95rem',
+                        }}
+                    >
+                        Discover exceptional savings on our finest pieces. Limited time offers on selected luxury items.
+                    </Typography>
 
-                    {/* Products Grid - 4 columns */}
+                    {/* Products Grid */}
                     <Box
                         sx={{
                             display: 'grid',
                             gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
                             gap: 3,
-                            mb: 6,
                         }}
                     >
-                        {filteredProducts.slice(0, 4).map((product) => (
-                            <ImageWithHover
-                                key={product.id}
-                                product={product}
-                                onClick={() => navigate(`/products/${product.id}`)}
-                            />
+                        {filteredOffers.map((product) => (
+                            <ProductWithDiscount key={product.id} product={product} />
                         ))}
                     </Box>
 
-                    {/* Mid-Section Video - Only show if NOT searching and has enough products */}
-                    {!searchQuery && filteredProducts.length > 4 && getCategoryVideo() && (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '100%',
-                                height: '80vh',
-                                mb: 6,
-                                overflow: 'hidden',
-                                backgroundColor: '#f5f1e8',
-                            }}
-                        >
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                style={{
-                                    width: '60%',
-                                    height: 'auto',
-                                    maxHeight: '100%',
-                                    objectFit: 'cover',
-                                }}
-                            >
-                                <source src={getCategoryVideo()} type="video/mp4" />
-                            </video>
-                        </Box>
-                    )}
-
-                    {/* Remaining Products Grid */}
-                    {filteredProducts.length > 4 && (
-                        <Box
-                            sx={{
-                                display: 'grid',
-                                gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
-                                gap: 3,
-                            }}
-                        >
-                            {filteredProducts.slice(4).map((product) => (
-                                <ImageWithHover
-                                    key={product.id}
-                                    product={product}
-                                    onClick={() => navigate(`/products/${product.id}`)}
-                                />
-                            ))}
-                        </Box>
-                    )}
-
-                    {/* No products message */}
-                    {filteredProducts.length === 0 && (
+                    {/* No results message */}
+                    {filteredOffers.length === 0 && (
                         <Typography
                             variant="h6"
                             align="center"
@@ -396,8 +399,8 @@ const ProductsPage = () => {
                             }}
                         >
                             {searchQuery
-                                ? `No products found matching "${searchQuery}"`
-                                : 'No products found in this category'
+                                ? `No special offers found matching "${searchQuery}"`
+                                : 'No special offers available'
                             }
                         </Typography>
                     )}
@@ -446,4 +449,4 @@ const ProductsPage = () => {
     );
 };
 
-export default ProductsPage;
+export default SpecialOffersPage;

@@ -7,6 +7,10 @@ import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CartPage from './pages/CartPage';
+import AddProductPage from './pages/AddProductPage';
+import EditProductPage from './pages/EditProductPage';
+import SpecialOffersPage from './pages/SpecialOffersPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -17,7 +21,11 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/login" element={<LoginPage />} />
+                <Route path="/products/add" element={<AddProductPage />} />
+                <Route path="/products/:id/edit" element={<EditProductPage />} />
+              <Route path="/special-offers" element={<SpecialOffersPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/cart" element={<CartPage />} />
             </Routes>
           </Layout>

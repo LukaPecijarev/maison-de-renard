@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import orderRepository from '../repository/orderRepository';
-import useAuth from './useAuth';
+import productRepository from '../repository/productRepository';
 
 const useOrder = () => {
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { isAuthenticated } = useAuth();
 
+    // Check authentication directly without using useAuth hook
+    const isAuthenticated = () => {
+        const token = localStorage.getItem('jwtToken');
+        return !!token;
+    };
 
     console.log('🛒 CartPage - order:', order);
     console.log('🛒 CartPage - loading:', loading);
@@ -32,7 +36,31 @@ const useOrder = () => {
                 setOrder(null);
                 setLoading(false);
             });
-    }, [isAuthenticated]);
+    }, []);
+
+    const addToCart = useCallback(async (productId) => {
+        try {
+            console.log('➕ Adding product to cart:', productId);
+            await productRepository.addToCart(productId);
+            await fetchPendingOrder(); // Refresh cart
+            return true;
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            return false;
+        }
+    }, [fetchPendingOrder]);
+
+    const removeFromCart = useCallback(async (productId) => {
+        try {
+            console.log('➖ Removing product from cart:', productId);
+            await productRepository.removeFromCart(productId);
+            await fetchPendingOrder(); // Refresh cart
+            return true;
+        } catch (error) {
+            console.error('Error removing from cart:', error);
+            return false;
+        }
+    }, [fetchPendingOrder]);
 
     const confirmOrder = useCallback(() => {
         orderRepository
@@ -59,6 +87,8 @@ const useOrder = () => {
     return {
         order,
         loading,
+        addToCart,
+        removeFromCart,
         confirmOrder,
         cancelOrder,
         fetchPendingOrder,

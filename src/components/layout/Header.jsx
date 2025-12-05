@@ -30,19 +30,20 @@ const Header = () => {
     // Debounced search effect
     useEffect(() => {
         const timer = setTimeout(() => {
-            const currentParams = Object.fromEntries(searchParams.entries());
-
             if (searchQuery) {
+                // ✅ Update only the search parameter, stay on current page
+                const currentParams = Object.fromEntries(searchParams.entries());
                 setSearchParams({ ...currentParams, search: searchQuery });
             } else {
-                // Remove only search param, keep others like category
+                // Clear search parameter if query is empty
+                const currentParams = Object.fromEntries(searchParams.entries());
                 const { search, ...otherParams } = currentParams;
                 setSearchParams(otherParams);
             }
         }, 300);
 
         return () => clearTimeout(timer);
-    }, [searchQuery, setSearchParams]);
+    }, [searchQuery, searchParams, setSearchParams]);
 
     // Update search query when URL changes
     useEffect(() => {
@@ -181,7 +182,7 @@ const Header = () => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: 3,
-                            marginLeft: '-40px',
+                            marginLeft: '-78px', // ✅ Shift slightly left
                         }}
                     >
                         {/* Search Input - Left */}
@@ -201,11 +202,6 @@ const Header = () => {
                                     fontSize: '0.875rem',
                                     fontFamily: '"Lato", sans-serif',
                                     color: '#2c2c2c',
-                                    borderBottom: '1px solid transparent',
-                                    transition: 'border-bottom 0.4s ease',
-                                    '&:focus': {
-                                        borderBottom: '1px solid #2c2c2c',
-                                    },
                                     '& input': {
                                         padding: '4px 0',
                                     },
@@ -218,13 +214,14 @@ const Header = () => {
                             <Button
                                 onClick={() => navigate('/products?season=fw2025')}
                                 sx={{
-                                    color: '#2c2c2c',
+                                    color: '#8b6f47', // ✅ Soft autumn brown
                                     fontSize: '0.875rem',
                                     fontFamily: '"Lato", sans-serif',
                                     letterSpacing: '0.05em',
                                     textTransform: 'uppercase',
                                     px: 2,
                                     position: 'relative',
+                                    fontWeight: 500, // ✅ Slightly bolder
                                     '&::after': {
                                         content: '""',
                                         position: 'absolute',
@@ -233,11 +230,12 @@ const Header = () => {
                                         transform: 'translateX(-50%)',
                                         width: 0,
                                         height: '1px',
-                                        backgroundColor: '#e6ccb2',
+                                        backgroundColor: '#a0826d', // ✅ Warm brown underline
                                         transition: 'width 0.3s ease',
                                     },
                                     '&:hover': {
                                         backgroundColor: 'transparent',
+                                        color: '#6d5d3b', // ✅ Darker brown on hover
                                     },
                                     '&:hover::after': {
                                         width: '80%',
@@ -373,13 +371,14 @@ const Header = () => {
                             <Button
                                 onClick={() => navigate('/special-offers')}
                                 sx={{
-                                    color: '#2c2c2c',
+                                    color: '#c62828', // ✅ Soft red color
                                     fontSize: '0.875rem',
                                     fontFamily: '"Lato", sans-serif',
                                     letterSpacing: '0.05em',
                                     textTransform: 'uppercase',
                                     px: 2,
                                     position: 'relative',
+                                    fontWeight: 500, // ✅ Slightly bolder
                                     '&::after': {
                                         content: '""',
                                         position: 'absolute',
@@ -388,11 +387,12 @@ const Header = () => {
                                         transform: 'translateX(-50%)',
                                         width: 0,
                                         height: '1px',
-                                        backgroundColor: '#e6ccb2',
+                                        backgroundColor: '#d32f2f', // ✅ Red underline
                                         transition: 'width 0.3s ease',
                                     },
                                     '&:hover': {
                                         backgroundColor: 'transparent',
+                                        color: '#d32f2f', // ✅ Brighter red on hover
                                     },
                                     '&:hover::after': {
                                         width: '80%',
