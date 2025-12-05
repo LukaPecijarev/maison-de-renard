@@ -39,12 +39,16 @@ public class Order {
     private String status;
 
     @Column(nullable = false)
-    private Double totalPrice;
+    private Double totalPrice = 0.0;  // ✅ Default value
 
+    @PrePersist  // ✅ Added annotation
     protected void onCreate(){
         createdAt = LocalDateTime.now();
         if(status == null){
             status = "PENDING";
+        }
+        if(totalPrice == null) {  // ✅ Safety check
+            totalPrice = 0.0;
         }
         calculateTotalPrice();
     }

@@ -70,15 +70,14 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/add-to-cart")
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasRole('CUSTOMER')")  // ✅ Correct - will match ROLE_CUSTOMER from JWT
     public ResponseEntity<DisplayOrderDto> addToCart(@PathVariable Long id, @AuthenticationPrincipal User user){
-        return ResponseEntity.ok(productApplicationService.addToOrder(id,user.getUsername()));
+        return ResponseEntity.ok(productApplicationService.addToOrder(id, user.getUsername()));
     }
 
-
     @PostMapping("/{id}/remove-from-cart")
-    @PreAuthorize("hasRole('CUSTOMER')")
+    @PreAuthorize("hasRole('CUSTOMER')")  // ✅ Correct - will match ROLE_CUSTOMER from JWT
     public ResponseEntity<DisplayOrderDto> removeFromCart(@PathVariable Long id, @AuthenticationPrincipal User user){
-        return ResponseEntity.ok(productApplicationService.removeFromOrder(id,user.getUsername()));
+        return ResponseEntity.ok(productApplicationService.removeFromOrder(id, user.getUsername()));
     }
 }

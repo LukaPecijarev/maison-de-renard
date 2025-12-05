@@ -267,64 +267,67 @@ public class DataInitializer {
                 "https://media.loropiana.com/HYBRIS/FAQ/FAQ2934/F3050CDE-D8A8-4E21-B96E-4620FCE2F28A/FAQ2934_A193_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/HYBRIS/FAQ/FAQ2934/CC91B96D-E980-49B9-89CB-713771649C0A/FAQ2934_A193_MEDIUM.jpg",
                 gifts);
 
-        createProduct("Cable Knit Cashmere Sweater", "Handcrafted from the finest Italian cashmere with intricate cable knit detailing.",
+        // 7. Create ESSENTIALS Products (12 products - RENAMED FOR UNIQUENESS)
+
+        // 4 from Men (renamed)
+        createProduct("Essential Cable Knit Sweater", "Handcrafted from the finest Italian cashmere with intricate cable knit detailing.",
                 1299.99, 10,
                 "https://media.loropiana.com/HYBRIS/FAQ/FAQ3218/60DA4312-63A0-4E89-8136-A429B6BD17FD/FAQ3218_51FU_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/PRODUCTS/HYBRIS/FAQ/FAQ3218/51FU/L3/805ADE5C-7C68-445A-B04A-15BE848F0EB2_FAQ3218_51FU_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Merino Wool Turtleneck", "Essential sophistication in a refined merino wool turtleneck with ribbed detailing.",
+        createProduct("Essential Merino Turtleneck", "Essential sophistication in a refined merino wool turtleneck with ribbed detailing.",
                 699.99, 18,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP8313/W000/FR/0A5B70EE-C44C-4F05-BE90-CB05C25E16CD_FAP8313_W000_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP8313/W000/L3/E63DA3BC-DC20-48C8-A3F0-1420880E3E3D_FAP8313_W000_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Blend Trousers", "Impeccably tailored trousers in a luxurious cashmere blend for ultimate comfort.",
+        createProduct("Essential Cashmere Trousers", "Impeccably tailored trousers in a luxurious cashmere blend for ultimate comfort.",
                 1199.99, 14,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAO/FAO3129/H0TM/FR/BA411C4C-6E41-4755-8297-DB5FD04F2AAD_FAO3129_H0TM_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/PRODUCTS/HYBRIS/FAO/FAO3129/H0TM/L4/12518492-58D7-487B-AD6F-CD9EB81B5B06_FAO3129_H0TM_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Scarf", "Luxuriously soft cashmere scarf in classic neutral tones.",
+        createProduct("Essential Cashmere Scarf", "Luxuriously soft cashmere scarf in classic neutral tones.",
                 599.99, 22,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAQ/FAQ1948/F6ZL/FR/BDA09968-DE7C-4295-B02A-B1DA428FDF04_FAQ1948_F6ZL_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/HYBRIS/FAQ/FAQ1948/951BA743-3562-47A6-8C52-C2A690CC6BFD/FAQ1948_F6ZL_MEDIUM.jpg",
                 essentials);
 
-        // 4 from Women
-        createProduct("Cashmere Polo Sweater", "Refined elegance in a soft cashmere polo with ribbed collar and cuffs.",
+        // 4 from Women (renamed)
+        createProduct("Essential Cashmere Polo", "Refined elegance in a soft cashmere polo with ribbed collar and cuffs.",
                 1199.99, 12,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP7344/W000/FR/0B635099-D96A-4C7D-90A2-3AD87FFCA794_FAP7344_W000_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP7344/W000/L2/78411282-CCEE-4178-8430-84F084F7C3C3_FAP7344_W000_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Merino Wool Turtleneck", "Essential layering piece in ultra-fine merino wool with clean silhouette.",
+        createProduct("Essential Wool Turtleneck", "Essential layering piece in ultra-fine merino wool with clean silhouette.",
                 699.99, 20,
                 "https://media.loropiana.com/HYBRIS/FAP/FAP7706/62D500E4-3867-49F7-9F87-DB65F42C8C4C/FAP7706_402F_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/HYBRIS/FAP/FAP7706/0C3C5D7C-F21E-4425-A037-3FE7282B0FC2/FAP7706_402F_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Palazzo Pants", "Flowing elegance in wide-leg cashmere blend palazzo pants.",
+        createProduct("Essential Palazzo Pants", "Flowing elegance in wide-leg cashmere blend palazzo pants.",
                 1499.99, 12,
                 "https://media.loropiana.com/HYBRIS/FAP/FAP6989/1C3AE6AF-8B03-481B-8852-E012A9B3587B/FAP6989_D983_MEDIUM.jpg?sw=500&sh=700,https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP6989/D983/L3/45044753-BF4E-4866-9607-F1E1DB0D46C2_FAP6989_D983_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Beanie", "Luxuriously soft cashmere beanie with ribbed knit.",
+        createProduct("Essential Knit Beanie", "Luxuriously soft cashmere beanie with ribbed knit.",
                 299.99, 30,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP9525/B4NE/FR/0F5A2C39-4493-41BF-B4D9-ADF97DE6F62A_FAP9525_B4NE_MEDIUM.jpg,https://media.loropiana.com/PRODUCTS/HYBRIS/FAP/FAP9525/B4NE/D1/AFDD34E5-34DB-4074-9F94-B40510D5D77B_FAP9525_B4NE_MEDIUM.jpg",
                 essentials);
 
-        // 4 from Gifts
-        createProduct("Cashmere Scarf", "Luxuriously soft cashmere scarf in timeless neutral tones.",
+        // 4 from Gifts (renamed)
+        createProduct("Essential Soft Scarf", "Luxuriously soft cashmere scarf in timeless neutral tones.",
                 599.99, 15,
                 "https://media.loropiana.com/HYBRIS/FAI/FAI3766/46010BEF-4C33-4760-A3A7-645D55A075D2/FAI3766_W948_MEDIUM.jpg,https://media.loropiana.com/HYBRIS/FAI/FAI3766/C9575477-26DC-4A48-98E3-C0516C26E7AB/FAI3766_W948_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Leather Wallet", "Handcrafted Italian leather wallet with multiple card slots and refined details.",
+        createProduct("Essential Leather Wallet", "Handcrafted Italian leather wallet with multiple card slots and refined details.",
                 299.99, 25,
                 "https://media.loropiana.com/PRODUCTS/HYBRIS/FAO/FAO3774/M006/FR/CDADC9E6-ABD1-4138-9949-27CB0D7B5618_FAO3774_M006_MEDIUM.jpg?sw=680&sh=952,https://media.loropiana.com/PRODUCTS/HYBRIS/FAO/FAO3774/M006/L1/AFF88145-E7A8-4A8A-B621-93CC301C5598_FAO3774_M006_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Gloves", "Lined cashmere gloves with leather palm patches for warmth and elegance.",
+        createProduct("Essential Cashmere Gloves", "Lined cashmere gloves with leather palm patches for warmth and elegance.",
                 399.99, 30,
                 "https://media.loropiana.com/HYBRIS/FAO/FAO8041/DD50627D-1494-4C61-97C0-F34E349E547F/FAO8041_F7A8_MEDIUM.jpg,https://media.loropiana.com/HYBRIS/FAO/FAO8041/4AA0E11D-CF3A-4A41-AE60-82F4D5D6CF31/FAO8041_F7A8_MEDIUM.jpg",
                 essentials);
 
-        createProduct("Cashmere Beanie", "Luxuriously soft cashmere beanie with ribbed knit detailing.",
+        createProduct("Essential Winter Beanie", "Luxuriously soft cashmere beanie with ribbed knit detailing.",
                 499.99, 15,
                 "https://media.loropiana.com/HYBRIS/FAQ/FAQ0922/10AD4A54-8C76-4FBF-AA30-78DF6A278E31/FAQ0922_H0WX_MEDIUM.jpg,https://media.loropiana.com/HYBRIS/FAQ/FAQ0922/322578EB-3093-4E77-80B7-6D17E3A7571C/FAQ0922_H0WX_MEDIUM.jpg",
                 essentials);
@@ -333,7 +336,7 @@ public class DataInitializer {
         System.out.println("📦 Created 12 Men products");
         System.out.println("📦 Created 12 Women products");
         System.out.println("📦 Created 12 Gifts products");
-        System.out.println("📦 Created 12 Essentials products");
+        System.out.println("📦 Created 12 Essentials products (with unique names)");
         System.out.println("👤 Admin User - Username: admin, Password: admin123");
         System.out.println("👤 Customer User - Username: customer, Password: customer123");
     }
