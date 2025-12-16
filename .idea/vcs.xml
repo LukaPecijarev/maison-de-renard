@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
+<<<<<<< HEAD
+    <mapping directory="$PROJECT_DIR$/AppFrontend/maison-de-renard-frontend" vcs="Git" />
+=======
     <mapping directory="" vcs="Git" />
+>>>>>>> 39949f3b1695a98b5ef5c1a66d20160add4c341c
   </component>
 </project>

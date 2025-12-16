@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/TimskiBackend/food-delivery-solution (1)/Maison de Renard/pom.xml" />
+        <option value="$PROJECT_DIR$/TimskiBackend/food-delivery-solution (1)/food-delivery-backend/pom.xml" />
+      </list>
+    </option>
+  </component>
+=======
+>>>>>>> 39949f3b1695a98b5ef5c1a66d20160add4c341c
   <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
