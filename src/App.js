@@ -11,6 +11,8 @@ import AddProductPage from './pages/AddProductPage';
 import EditProductPage from './pages/EditProductPage';
 import SpecialOffersPage from './pages/SpecialOffersPage';
 import CheckoutPage from './pages/CheckoutPage';
+import ChatBot from './components/ChatBot';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 function App() {
   return (
@@ -27,8 +29,10 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/cart" element={<CartPage />} />
+              <Route path="/products/:id" element={<ProductDetailsPage />} />
             </Routes>
           </Layout>
+          <ChatBot />
         </Router>
       </AuthProvider>
   );
